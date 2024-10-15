@@ -8,7 +8,8 @@ export const dynamoDBService = {
       TableName,
       Item: patient,
     };
-    await dynamoDBClient.put(params).promise();
+    const result = await dynamoDBClient.put(params).promise();
+    return result
   },
 
   findPatientsByAddress: async (address: string) => {
@@ -65,6 +66,7 @@ export const dynamoDBService = {
       TableName,
       Key: { patientId },
     };
-    await dynamoDBClient.delete(params).promise();
+   const result =  await dynamoDBClient.delete(params).promise();
+   return result
   },
 };

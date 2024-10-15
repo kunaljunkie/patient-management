@@ -4,7 +4,9 @@ import { config } from "dotenv";
 import jwt from "jsonwebtoken";
 import logger from "../utils/logger";
 config();
+
 const cognito = new AWS.CognitoIdentityServiceProvider();
+
 export const signup = async (req: Request, res: Response) => {
   const { username, password, email } = req.body;
   try {
@@ -24,9 +26,10 @@ export const signup = async (req: Request, res: Response) => {
     res.status(201).json(data);
   } catch (err) {
     logger.error("error", { stack: err });
-    res.status(500).json({ error: "Error creating patient", data: err });
+    res.status(500).json({ error: "Error in signup", data: err });
   }
 };
+
 export const confirmOTP = async (req: Request, res: Response) => {
   const { username, otp } = req.body;
   try {
@@ -39,9 +42,10 @@ export const confirmOTP = async (req: Request, res: Response) => {
     res.status(201).json(data);
   } catch (err) {
     logger.error("error", { stack: err });
-    res.status(500).json({ error: "Error creating patient", data: err });
+    res.status(500).json({ error: "Error in OTP Generating", data: err });
   }
 };
+
 export const signin = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
@@ -61,6 +65,6 @@ export const signin = async (req: Request, res: Response) => {
     res.status(201).json({ token: token, data: data });
   } catch (err) {
     logger.error("error", { stack: err });
-    res.status(500).json({ error: "Error creating patient", data: err });
+    res.status(500).json({ error: "Error in signing", data: err });
   }
 };
