@@ -8,7 +8,6 @@ const createPatientSchema = Joi.object({
   allergies: Joi.array().items(Joi.string()).required(),
 });
 
-
 const updatePatientSchema = Joi.object({
   name: Joi.string().optional(),
   address: Joi.string().optional(),
@@ -20,6 +19,7 @@ const queryByConditionSchema = Joi.object({
   condition: Joi.string().optional(),
   address: Joi.string().optional(),
 });
+
 const validate = (schema: Joi.ObjectSchema) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     const { error }: ValidationResult = schema.validate(req.body || req.query);

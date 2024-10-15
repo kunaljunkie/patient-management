@@ -37,7 +37,6 @@ export const openSearchService = {
     return result.body.hits.hits;
   },
 
-  
   searchPatientsByPatientId: async (patientId: string) => {
     const result = await client.search({
       index,
