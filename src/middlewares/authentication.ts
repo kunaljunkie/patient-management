@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
-import jwksRsa from 'jwks-rsa';
+import { config } from "dotenv";
 import { Request, Response, NextFunction } from 'express';
+config();
 
 declare global {
   namespace Express {
@@ -13,7 +14,7 @@ declare global {
 export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
   const token = req.headers.authorization;
   if(token){
-    jwt.verify(token,"1234567890qwertyuiop)(*&^%$#@!",(err,user)=>{
+    jwt.verify(token,`${process.env.JWT_SECRET}`,(err,user)=>{
       if(err){
         res.status(403).json({message:"Invalid Token"})
         return

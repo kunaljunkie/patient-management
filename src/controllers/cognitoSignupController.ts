@@ -59,7 +59,7 @@ export const signin = async (req: Request, res: Response) => {
       {
         username: data.AuthenticationResult?.AccessToken,
       },
-      "1234567890qwertyuiop)(*&^%$#@!",
+      `${process.env.JWT_SECRET}`,
       { expiresIn: "3h" }
     );
     res.status(201).json({ token: token, data: data });
