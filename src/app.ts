@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import patientRoutes from "./routes/patientRoutes";
 import rateLimit from "express-rate-limit";
 import { config } from "dotenv";
+import helmet from 'helmet';
+import cors from 'cors';
 config();
 const app = express();
 const limiter = rateLimit({
@@ -13,7 +15,8 @@ const limiter = rateLimit({
 app.use(bodyParser.json());
 app.use(limiter);
 app.use(`/${process.env.ROUTES_PREFIX}`, patientRoutes);
-
+app.use(helmet());
+app.use(cors());  
 const PORT = process.env.PORT || 3000;
 
 app.get("/health", (req, res) => {
@@ -31,7 +34,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     error: err.message || "Something went wrong",
   });
 });
-console.log("kunal")
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
